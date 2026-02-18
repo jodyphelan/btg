@@ -9,7 +9,7 @@ This exercise assumes the following:
 .yaml files
 * Reads of a few bacterial genomes
 * All files are stored within the home directory for the
-`gebt` user. Feel free to change locations according to own needs!
+`btg` user. Feel free to change locations according to own needs!
 
 
 
@@ -32,9 +32,9 @@ your progress through the intermediate exercises.
 ## Prerequisites
 
 For this exercise we will use the `BTG_QC` , `BTG_spades_4.2.0` , `BTG_alignment` environments. In addition, we will use the following files and file paths.
-* Path for read mate 1: `/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
-* Path for read mate 2: `/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
-* Path to Output folder: `/home/gebt/BTG/Day8_pipelines/bacterial_asembly`
+* Path for read mate 1: `/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
+* Path for read mate 2: `/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
+* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_asembly`
 
 ------------------------------------------------------------------------
 
@@ -68,9 +68,9 @@ reads, generate an assembly for sample, and run mlst on “Ec016” it.
 
 ```bash
 #!/bin/bash
-read1="/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz"
-read2="/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz"
-output_dir="/home/gebt/BTG/Day8_pipelines/bacterial_assembly"
+read1="/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz"
+read2="/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz"
+output_dir="/home/btg/BTG/Day8_pipelines/bacterial_assembly"
 # Determine sample name from read filename
 read1_filename=$(basename $read1)
 sample_name=${read1_filename%.illumina_R1*gz}
@@ -139,9 +139,9 @@ again.
 
 ```bash
 #!/bin/bash
-read1="/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz"
-read2="/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz"
-output_dir="/home/gebt/BTG/Day8_pipelines/bacterial_assembly"
+read1="/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz"
+read2="/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz"
+output_dir="/home/btg/BTG/Day8_pipelines/bacterial_assembly"
 # Determine sample name from read filename
 read1_filename=$(basename $read1)
 sample_name=${read1_filename%.illumina_R1*gz}
@@ -196,9 +196,9 @@ cp $mlst_out/$sample_name.tsv $results_dir/.
 
 ```bash
 #!/bin/bash
-read1="/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz"
-read2="/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz"
-output_dir="/home/gebt/BTG/Day8_pipelines/bacterial_assembly"
+read1="/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz"
+read2="/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz"
+output_dir="/home/btg/BTG/Day8_pipelines/bacterial_assembly"
 # Determine sample name from read filename
 read1_filename=$(basename $read1)
 sample_name=${read1_filename%.illumina_R1*gz}
@@ -228,6 +228,6 @@ cp $mlst_out/$sample_name.tsv $results_dir/.
 Try to run whole pipeline on different sample: *SRR27240827*. You will need to change R1 and R2 reads path.
 
 ```bash
-read1="/home/gebt/BTG/SequenceData/Ec004.illumina_R1.fastq.gz"
-read2="/home/gebt/BTG/SequenceData/Ec004.illumina_R2.fastq.gz"
+read1="/home/btg/BTG/SequenceData/Ec004.illumina_R1.fastq.gz"
+read2="/home/btg/BTG/SequenceData/Ec004.illumina_R2.fastq.gz"
 ```

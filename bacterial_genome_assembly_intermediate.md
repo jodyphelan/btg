@@ -7,7 +7,7 @@
 .yaml files
 * Reads of a few bacterial genomes
 * All files are stored within the home directory for the
-`gebt` user. Feel free to change locations according to own needs!
+`btg` user. Feel free to change locations according to own needs!
 
 ## Authors
 
@@ -25,9 +25,9 @@ your progress through the intermediate exercises.
 
 For this exercise we will use the `BTG_QC` , `BTG_spades_4.2.0` , `BTG_alignment` environments. In addition, we will use the
 following **files** and **file paths**.
-* Path for read mate 1: `/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
-* Path for read mate 2: `/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
-* Path to Output folder: `/home/gebt/BTG/Day8_pipelines/bacterial_asembly`
+* Path for read mate 1: `/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
+* Path for read mate 2: `/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
+* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_asembly`
 
 ### Executing commands from different environments
 
@@ -67,7 +67,7 @@ worked in previous exercise!):
 #!/bin/bash
 read1=""
 read2=""
-output_dir="/home/gebt/BTG/Day8_pipelines/bacterial_assembly"
+output_dir="/home/btg/BTG/Day8_pipelines/bacterial_assembly"
 # Determine sample name from read filename
 # DONT CHANGE THESE:
 read1_filename=$(basename $read1)
@@ -133,7 +133,7 @@ above.
 #!/bin/bash
 read1="$1"
 read2="$2"
-output_dir="/home/gebt/BTG/Day8_pipelines/bacterial_assembly"
+output_dir="/home/btg/BTG/Day8_pipelines/bacterial_assembly"
 # Determine sample name from read filename
 # DONT CHANGE THESE:
 read1_filename=$(basename $read1)
@@ -197,7 +197,7 @@ cp $mlst_out/$sample_name.tsv [final_result_dir]/.
 #!/bin/bash
 read1="$1"
 read2="$2"
-output_dir="/home/gebt/BTG/Day8_pipelines/bacterial_assembly"
+output_dir="/home/btg/BTG/Day8_pipelines/bacterial_assembly"
 # Determine sample name from read filename
 # DONT CHANGE THESE:
 read1_filename=$(basename $read1)
@@ -229,7 +229,7 @@ cp $mlst_out/$sample_name.tsv $results_dir/.
 Try to run whole pipeline on different sample: Ec004. You just need to call function with different input:
 
 ```bash
-./bacterial_assembly.sh "/home/gebt/BTG/SequenceData/Ec004.illumina_R1.fastq.gz" "/home/gebt/BTG/SequenceData/Ec004.illumina_R2.fastq.gz"
+./bacterial_assembly.sh "/home/btg/BTG/SequenceData/Ec004.illumina_R1.fastq.gz" "/home/btg/BTG/SequenceData/Ec004.illumina_R2.fastq.gz"
 ```
 
-Run the pipeline with one other samples from /home/gebt/BTG/SequenceData/
+Run the pipeline with one other samples from /home/btg/BTG/SequenceData/

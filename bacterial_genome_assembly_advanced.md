@@ -7,7 +7,7 @@
 .yaml files
 * Reads of a few bacterial genomes
 * All files are stored within the home directory for the
-`gebt` user. Feel free to change locations according to own needs!
+`btg` user. Feel free to change locations according to own needs!
 
 ## Authors
 These exercises where authored and tested by **Povilas Matusevicius** and **Kasper Thystrup Karstensen**
@@ -22,9 +22,9 @@ The goal of this practical is to help building a pipeline for handling bacterial
 
 For this exercise we will use the `BTG_QC` , `BTG_spades_4.2.0` , `BTG_alignment` environments. In addition, we will use the
 following files and file paths.
-* Path for read mate 1: `/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
-* Path for read mate 2: `/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
-* Path to Output folder: `/home/gebt/BTG/Day8_pipelines/bacterial_asembly`
+* Path for read mate 1: `/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
+* Path for read mate 2: `/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
+* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_asembly`
 
 ### Executing commands from different environments
 A drawback of using conda/mamba environments, is that not all software can run in the same environment. When
