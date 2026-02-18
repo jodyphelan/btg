@@ -39,7 +39,7 @@ micromamba run -n BTG_alignment mlst
 
 ## Bacterial pipeline
 In the exercise, your task is to write a script called “bacterial_assembly.sh” that will provide a QC report, trim raw
-reads, generate an assembly for sample, and run mlst on “SRR27240825” it.
+reads, generate an assembly for sample, and run mlst on "Ec016" it.
 
 ### Setting up parameters
 1. Navigate to the `Day8_pipelines` folder in `BTG` directory
@@ -272,9 +272,9 @@ mkdir -p $fastp_out
 mkdir -p $spades_out
 mkdir -p $mlst_out
 mkdir -p $results_dir
-micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -I $read2 -O
-micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.g
-micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_o
+micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -I $read2 -O $fastp_out/"$sample_name"_trimmed_R2.fastq.gz --html $fastp_out/$sample_name.html --json $fastp_out/$sample_name.json --disable_adapter_trimming --length_required 100 --qualified_quality_phred 30 --trim_front1 9 --trim_tail1 1 --correction --overrepresentation_analysis --overrepresentation_sampling 10
+micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -2 $fastp_out/"$sample_name"_trimmed_R2.fastq.gz -o $spades_out
+micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_out/$sample_name.tsv
 # Generate a report on output and collect relevant files
 cp $fastp_out/"$sample_name"_trimmed_* .fastq.gz $results_dir/.
 cp $spades_out/contigs.fasta $results_dir/$sample_name.fasta
