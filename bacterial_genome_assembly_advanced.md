@@ -276,9 +276,9 @@ micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1
 micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -2 $fastp_out/"$sample_name"_trimmed_R2.fastq.gz -o $spades_out
 micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_out/$sample_name.tsv
 # Generate a report on output and collect relevant files
-cp $fastp_out/"$sample_name"_trimmed_* .fastq.gz $results_dir/.
+cp $fastp_out/"$sample_name"_trimmed_*.fastq.gz $results_dir/
 cp $spades_out/contigs.fasta $results_dir/$sample_name.fasta
-cp $mlst_out/$sample_name.tsv $results_dir/.
+cp $mlst_out/$sample_name.tsv $results_dir/
 echo All done!
 ```
 
@@ -298,8 +298,9 @@ read2_files=${read1_files%_R1.fastq.gz}_R2.fastq.gz
 5. Integrate a for loop iterating on `read1_files` (Hint: call the for loop variable `read1` - We will ignore the `read2_files`
 variable until the very end!)
 6. Define the now missing `read2` variable with the following:
-# Determine read mate 2
+
 ```bash
+# Determine read mate 2
 read2=${read1%_R1.fastq.gz}_R2.fastq.gz
 ```
 7. End the for loop with done after copying the result files to the $results_dir
