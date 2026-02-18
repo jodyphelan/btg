@@ -10,11 +10,11 @@
 `btg` user. Feel free to change locations according to own needs!
 
 ## Authors
-These exercises where authored and tested by **Povilas Matusevicius** and **Kasper Thystrup Karstensen**
+These exercises were authored and tested by **Povilas Matusevicius** and **Kasper Thystrup Karstensen**
 
 ## Introduction
 
-The goal of this practical is to help building a pipeline for handling bacterial data from raw reads to sequence type determination. The practical is build to hold you in the hand, while guiding you throughout the process.
+The goal of this practical is to help building a pipeline for handling bacterial data from raw reads to sequence type determination. The practical is built to hold you by the hand, while guiding you throughout the process.
 
 ⚠️ Therefore it is recommended to attempt the Intermediate exercise and only consult this exercise to guide your progress through the intermediate exercises.
 
@@ -24,12 +24,12 @@ For this exercise we will use the `BTG_QC` , `BTG_spades_4.2.0` , `BTG_alignment
 following files and file paths.
 * Path for read mate 1: `/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
 * Path for read mate 2: `/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
-* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_asembly`
+* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_assembly`
 
 ### Executing commands from different environments
 A drawback of using conda/mamba environments, is that not all software can run in the same environment. When
 running bash scripts, the shell doesn’t always know how to invoke the conda/mamba commands. With `micromamba`
-though, there is a hack that can be utilized: Micromamba allow for cherry picking commands from different
+though, there is a hack that can be utilized: Micromamba allows for cherry picking commands from different
 environments using `micromamba run`. This way environments are not required to be loaded. So in order to run e.g.
 MLST from within any (or no) environment, the following command can be used in the bash script.
 
@@ -39,7 +39,7 @@ micromamba run -n BTG_alignment mlst
 
 ## Bacterial pipeline
 In the exercise, your task is to write a script called “bacterial_assembly.sh” that will provide a QC report, trim raw
-reads, generate an assembly for sample, and run mlst on "Ec016" it.
+reads, generate an assembly for sample, and run mlst on "Ec016".
 
 ### Setting up parameters
 1. Navigate to the `Day8_pipelines` folder in `BTG` directory
@@ -90,7 +90,7 @@ read1_filename=$(basename $read1)
 sample_name=${read1_filename%.illumina_R1.fastq.gz}
 ```
 
-3. With the input and output settings determined, lets move one with the basic skeleton for handling the pipeline
+3. With the input and output settings determined, let's move on with the basic skeleton for handling the pipeline
 output. Define the following output directories to the file, and manually write code for generating folders for
 each of these folders:
 * `fastqc_out=$output_dir/$sample_name/fastqc`
@@ -136,7 +136,7 @@ for all the tools you will be running to learn how to provide proper input.
 
 3. Execute the pipeline to ensure everything is still working
 
-🎓 Pro advice: There are many steps, and it is easy to make a typing errors (some of the commands are very long!). So make your script one step at the time, and check that it works, before moving on to the next step. This can most easily be achieved by having two terminal open simultaneously, both with the loaded environment. One terminal handles the coding, while the other handles execution. Remember, you can easily disable commands in your script simply by adding a comment symbol ( # ) at the start of the line. Once you are ready to include the commands again, remove the comment symbol again.
+🎓 Pro advice: There are many steps, and it is easy to make typing errors (some of the commands are very long!). So make your script one step at a time, and check that it works, before moving on to the next step. This can most easily be achieved by having two terminal open simultaneously, both with the loaded environment. One terminal handles the coding, while the other handles execution. Remember, you can easily disable commands in your script simply by adding a comment symbol ( # ) at the start of the line. Once you are ready to include the commands again, remove the comment symbol again.
 
 The script so far ⚠️ Don’t read unless needing help!
 ```bash
@@ -195,7 +195,7 @@ micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1
 After you trimmed low quality reads and determined that the general quality of reads will suffice, you need to
 make an assembly. For this purpose you can use various assemblers, some of the popular ones are **spades**,
 **skesa**, **unicycler** and many others.
-1. For this task we will be using SPAdes, expand you script by introducing a `micromamba run` command, point to the
+1. For this task we will be using SPAdes, expand your script by introducing a `micromamba run` command, point to the
 `BTG_spades_4.2.0` environment and execute the assembler using `spades.py`
 2. Manually add the following parameters:
 * `--isolate`
@@ -204,7 +204,7 @@ make an assembly. For this purpose you can use various assemblers, some of the p
 * `-o` - output folder
 
 ### Determine sequence type 
-One of the more useful result after you have assembled the sequence is to determine the sample MLST.
+One of the more useful results after you have assembled the sequence is to determine the sample MLST.
 1. Run MLST through the micromamba run command in the BTG_alignment environment with the mlst command
 2. Manually add the following parameters:
 * `--quiet`
@@ -286,7 +286,7 @@ echo All done!
 Having to point to individual read file is far from optimal, so in order to automate things further, we can introduce a for loop.
 Here, we simplify the argument parser to only take in a directory with read files as input and run all tools on all the fastq pairs.
 
-1. In the argument parer at the top of the script, replace all instances of `-r|--read1` with `-r|read_dir` and update the
+1. In the argument parser at the top of the script, replace all instances of `-r|--read1` with `-r|read_dir` and update the
 `read1` variable to be `read_dir`
 2. Update the message in the argument parser usage descriptor (e.g. `[-r|--read_dir REPLACE WITH SOMETHING HELPFUL!]`
 3. Remove `-R|--read2` and the `read2` variable from the code
@@ -323,8 +323,8 @@ Done!
 #!/bin/bash
 # Define usage function
 usage() {
+    echo "Usage: $(basename "$0") [-r|--read_dir Directory with read files] [-o|--output_dir Output directory]"
     exit 1
-    echo "Usage: $(basename "$0") [-r|--read_dir Direcotry with read files] [-o|--output_dir Output directory]"
 }
 # Parse options
 while [[ $# -gt 0 ]]; do

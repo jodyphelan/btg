@@ -11,12 +11,12 @@
 
 ## Authors
 
-These exercises where authored and tested by **Povilas Matusevicius** and **Kasper Thystrup Karstensen**.
+These exercises were authored and tested by **Povilas Matusevicius** and **Kasper Thystrup Karstensen**.
 
 ## Introduction
 
 The goal of this practical is to help building a pipeline for handling bacterial data from raw reads to sequence type
-determination. The practical is build to hold you in the hand, while guiding you throughout the process.
+determination. The practical is built to hold you by the hand, while guiding you throughout the process.
 
 ⚠️ Therefore it is recommended to attempt the Intermediate exercise and only consult this exercise to guide
 your progress through the intermediate exercises.
@@ -27,11 +27,11 @@ For this exercise we will use the `BTG_QC` , `BTG_spades_4.2.0` , `BTG_alignment
 following **files** and **file paths**.
 * Path for read mate 1: `/home/btg/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
 * Path for read mate 2: `/home/btg/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
-* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_asembly`
+* Path to Output folder: `/home/btg/BTG/Day8_pipelines/bacterial_assembly`
 
 ### Executing commands from different environments
 
-A drawback of using conda/mamba environments, is that not all software can run in the same environment. When running bash scripts, the shell doesn’t always know how to invoke the conda/mamba commands. With `micromamba` though, there is a hack that can be utilized: Micromamba allow for cherry picking commands from different environments using `micromamba run`. This way environments are not required to be loaded. So in order to run e.g. MLST from within any (or no) environment, the following command can be used in the bash script.
+A drawback of using conda/mamba environments, is that not all software can run in the same environment. When running bash scripts, the shell doesn’t always know how to invoke the conda/mamba commands. With `micromamba` though, there is a hack that can be utilized: Micromamba allows for cherry picking commands from different environments using `micromamba run`. This way environments are not required to be loaded. So in order to run e.g. MLST from within any (or no) environment, the following command can be used in the bash script.
 
 ```bash
 micromamba run -n BTG_alignment mlst
@@ -51,7 +51,7 @@ input and output. Make sure to memorize the following:
 
 ## Bacterial pipeline
 
-In the exercise, your task is to write a script called `bacterial_assembly.sh` that will provide a QC report, trim raw reads, generate an assembly for sample, and run mlst on "Ec016" it.
+In the exercise, your task is to write a script called `bacterial_assembly.sh` that will provide a QC report, trim raw reads, generate an assembly for sample, and run mlst on "Ec016".
 
 ### Setting up parameters
 1. Navigate to the `Day8_pipelines` folder in `BTG` directory
@@ -86,7 +86,7 @@ echo "This is the output folder: $output_dir"
 7. Execute the script by running ./bacterial_assembly.sh with read1 and read2 as inputs
 9. Once it succeeds, reopen the file with nano and remove the echo statements.
 10. Tools used in this exercise cannot make their own output folders, they can only use existing ones, while it is
-for you to decide how your output should be structured, in this exercise structure will be provided in advanced
+for you to decide how your output should be structured, in this exercise structure will be provided in advance
 for the sake of clarity and simplicity, add these lines to create output folders for all the tools:
 
 ```bash
@@ -125,7 +125,7 @@ micromamba run -n BTG_QC fastp -i [input_read1] -o [output_folder]/"[sample_name
 2. Execute the pipeline to ensure everything is working so far. If you forgot how to - check step7 in the segment
 above.
 
-🎓 Pro advice: There are many steps, and it is easy to make a typing errors (some of the commands are very long!). So make your script one step at the time, and check that it works, before moving on to the next step. This can most easily be achieved by having two terminal open simultaneously, both with the loaded environment. One terminal handles the coding, while the other handles execution. Remember, you can easily disable commands in your script simply by adding a comment symbol ( # ) at the start of the line. Once you are ready to include the commands again, remove the comment symbol again.
+🎓 Pro advice: There are many steps, and it is easy to make typing errors (some of the commands are very long!). So make your script one step at a time, and check that it works, before moving on to the next step. This can most easily be achieved by having two terminal open simultaneously, both with the loaded environment. One terminal handles the coding, while the other handles execution. Remember, you can easily disable commands in your script simply by adding a comment symbol ( # ) at the start of the line. Once you are ready to include the commands again, remove the comment symbol again.
 
 ### The script so far
 
@@ -167,7 +167,7 @@ micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 [input_folder]/"[sampl
 
 ## Determine sequence type
 
-One of the most useful result after you have assembled the sequence is to determine the type of it. In this task we will be using mlst (multilocus sequence typing) 
+One of the most useful results after you have assembled the sequence is to determine the type of it. In this task we will be using mlst (multilocus sequence typing) 
 
 Note that output of spades - contigs.fasta, should be input for mlst.
 
@@ -177,7 +177,7 @@ micromamba run -n BTG_alignment mlst [input_folder]/contigs.fasta --quiet --labe
 
 ## Results
 Lets collect all relevant information in a Results folder, so they are easily accessible from the Results directory
-* Generate summary of all relevant tools using `MulitQC` (Currently only `FastQC` works, MutliQC must be updated in
+* Generate summary of all relevant tools using `MultiQC` (Currently only `FastQC` works, `MultiQC` must be updated in
 order to work with `fastp` )
 * Copy important results files to the Results directory
 
