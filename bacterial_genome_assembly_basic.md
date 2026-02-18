@@ -11,13 +11,13 @@ This exercise assumes the following:
 * All files are stored within the home directory for the
 `gebt` user. Feel free to change locations according to own needs!
 
-------------------------------------------------------------------------
+
 
 ## Authors
 
 These exercises where authored and tested by **Povilas Matusevicius** and **Kasper Thystrup Karstensen**.
 
-------------------------------------------------------------------------
+
 
 ## Introduction
 
@@ -27,7 +27,7 @@ determination. The practical is build to hold you in the hand, while guiding you
 ⚠️ Therefore it is recommended to attempt the Intermediate exercise and only consult this exercise to guide
 your progress through the intermediate exercises.
 
-------------------------------------------------------------------------
+
 
 ## Prerequisites
 
@@ -59,8 +59,8 @@ reads, generate an assembly for sample, and run mlst on “Ec016” it.
 
 ### Setting up parameters
 
-1. Navigate to the Day8_pipelines folder in BTG directory
-2. Make a script file called bacterial_assembly.sh and open it.
+1. Navigate to the `Day8_pipelines` folder in `BTG` directory
+2. Make a script file called `bacterial_assembly.sh` and open it.
 
 💡 If you use `nano` to make the file, you don’t have to open it afterwards!
 
@@ -105,12 +105,12 @@ echo "The final results directory is $results_dir"
 
 7. Execute the script by running ./bacterial_assembly.sh
 
-9. Once it succeeds, reopen the file with nano and remove the echo statements.
+9. Once it succeeds, reopen the file with `nano` and remove the `echo` statements.
 
 ## QC and Read trimming
 
-To ensure that we get a great overview of quality parametrics we utilise FastQC and impose semi-strict filtration
-criteria using fastp introduced during the Quality Assurance on Illumina Reads exercises.
+To ensure that we get a great overview of quality parametrics we utilise `FastQC` and impose semi-strict filtration
+criteria using `fastp` introduced during the Quality Assurance on Illumina Reads exercises.
 
 💡 Use `cd` and `ls` to investigate outputs after every step.
 
@@ -135,7 +135,7 @@ Remember, you can easily disable commands in your script simply by adding a comm
 the start of the line. Once you are ready to include the commands again, remove the comment symbol
 again.
 
-The script so far
+### The script so far
 
 ```bash
 #!/bin/bash
@@ -161,7 +161,7 @@ micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1
 ``` 
 
 ## Adding the assembler to the pipeline
-After you trimmed low quality reads and determined that the general quality of reads will suffice, you need to make an assembly. For this purpose you can use various assemblers, some of the popular ones are spades, skesa, unicycler and many others. For this task we will be using spades, below is a command that runs
+After you trimmed low quality reads and determined that the general quality of reads will suffice, you need to make an assembly. For this purpose you can use various assemblers, some of the popular ones are **spades**, **skesa**, **unicycler** and many others. For this task we will be using **spades**, below is a command that runs
 spades on our trimmed reads files:
 
 ```bash
@@ -180,7 +180,7 @@ micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label
 
 * Lets collect all relevant information in a Results folder, so they are easily accessible from the Results directory
 
-* Generate summary of all relevant tools using MulitQC (Currently only FastQC works, MutliQC must be updated in order to work with fastp )
+* Generate summary of all relevant tools using `MulitQC` (Currently only `FastQC` works, `MutliQC` must be updated in order to work with `fastp` )
 Copy important results files to the Results directory
 
 ```bash
@@ -225,7 +225,7 @@ cp $mlst_out/$sample_name.tsv $results_dir/.
 ```
 
 ## Run the pipeline with different sample
-Try to run whole pipeline on different sample: SRR27240827 . You will need to change R1 and R2 reads path.
+Try to run whole pipeline on different sample: *SRR27240827*. You will need to change R1 and R2 reads path.
 
 ```bash
 read1="/home/gebt/BTG/SequenceData/Ec004.illumina_R1.fastq.gz"

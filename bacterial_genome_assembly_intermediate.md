@@ -32,7 +32,10 @@ following **files** and **file paths**.
 ### Executing commands from different environments
 
 A drawback of using conda/mamba environments, is that not all software can run in the same environment. When running bash scripts, the shell doesn’t always know how to invoke the conda/mamba commands. With `micromamba` though, there is a hack that can be utilized: Micromamba allow for cherry picking commands from different environments using `micromamba run`. This way environments are not required to be loaded. So in order to run e.g. MLST from within any (or no) environment, the following command can be used in the bash script.
+
+```bash
 micromamba run -n BTG_alignment mlst
+```
 
 ## Layout
 
@@ -73,9 +76,11 @@ sample_name=${read1_filename%.illumina_R1*gz}
 
 6. Add print statements to ensure that the script contains the correct information. add the following lines to the
 end of the script. (They are to be removed again shortly).
+```bash
 echo "This is the read pair, consisting of $read1 and $read2"
 echo "This is the sample name: $sample_name"
 echo "This is the output folder: $output_dir"
+```
 5. Save and exit the file.
 4. Add execution permission using: chmod u+x bacterial_assembly.sh
 7. Execute the script by running ./bacterial_assembly.sh with read1 and read2 as inputs
@@ -103,10 +108,10 @@ match partial and final solve provided in the exercise
 
 ## QC and Read trimming
 
-To ensure that we get a great overview of quality parameters we utilize FastQC and impose semi-strict filtration
-criteria using fastp introduced during the Quality Assurance on Illumina Reads exercises.
+To ensure that we get a great overview of quality parameters we utilize `FastQC` and impose semi-strict filtration
+criteria using `fastp` introduced during the Quality Assurance on Illumina Reads exercises.
 
-💡 Use cd and ls to investigate outputs after every step.
+💡 Use `cd` and `ls` to investigate outputs after every step.
 
 1. Add the following lines of code to the script
 
@@ -154,10 +159,10 @@ micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1
 
 After you trimmed low quality reads and determined that the general quality of reads will suffice, you need to make an assembly. For this purpose you can use various assemblers, some of the popular ones are spades, skesa, unicycler and many others. For this task we will be using spades, below is a command that runs spades on our trimmed reads files:
 
-Note that output of fastp - trimmed reads files, should be input for spades.
+Note that output of `fastp` - trimmed reads files, should be input for spades.
 
 ```bash
-micromamba run -n BTG_spades_4.0.0 spades.py --isolate -1 [input_folder]/"[sample_name]"_trimmed_R1.fastq.g
+micromamba run -n BTG_spades_4.0.0 spades.py --isolate -1 [input_folder]/"[sample_name]"_trimmed_R1.fastq.gz -2 [input_folder]/"[sample_name]"_trimmed_R2.fastq.gz -o [output_folder]
 ```
 
 ## Determine sequence type
@@ -172,8 +177,8 @@ micromamba run -n BTG_alignment mlst [input_folder]/contigs.fasta --quiet --labe
 
 ## Results
 Lets collect all relevant information in a Results folder, so they are easily accessible from the Results directory
-* Generate summary of all relevant tools using MulitQC (Currently only FastQC works, MutliQC must be updated in
-order to work with fastp )
+* Generate summary of all relevant tools using `MulitQC` (Currently only `FastQC` works, MutliQC must be updated in
+order to work with `fastp` )
 * Copy important results files to the Results directory
 
 ```bash

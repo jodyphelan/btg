@@ -20,11 +20,11 @@ The goal of this practical is to help building a pipeline for handling bacterial
 
 ## Prerequisites
 
-For this exercise we will use the BTG_QC , BTG_spades_4.0.0 , BTG_alignment environments. In addition, we will use the
+For this exercise we will use the `BTG_QC` , `BTG_spades_4.0.0` , `BTG_alignment` environments. In addition, we will use the
 following files and file paths.
-* Path for read mate 1: /home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz
-* Path for read mate 2: /home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz
-* Path to Output folder: /home/gebt/BTG/Day8_pipelines/bacterial_asembly
+* Path for read mate 1: `/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
+* Path for read mate 2: `/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
+* Path to Output folder: `/home/gebt/BTG/Day8_pipelines/bacterial_asembly`
 
 ### Executing commands from different environments
 A drawback of using conda/mamba environments, is that not all software can run in the same environment. When
@@ -42,46 +42,47 @@ In the exercise, your task is to write a script called “bacterial_assembly.sh�
 reads, generate an assembly for sample, and run mlst on “SRR27240825” it.
 
 ### Setting up parameters
-1. Navigate to the Day8_pipelines folder in BTG directory
-2. Make a script file called bacterial_assembly.sh and open it.
+1. Navigate to the `Day8_pipelines` folder in `BTG` directory
+2. Make a script file called `bacterial_assembly.sh` and open it.
 
 💡 If you use nano to make the file, you don’t have to open it afterwards!
 
 3. For this pipeline we will provide an argument parser to make execution easier for other users as well. Since
 adding an argument parser to bash script is out of the scope for this Course, copy paste the following into the
-empty bacterial_assembly.sh file:
+empty `bacterial_assembly.sh` file:
 ```bash
 #!/bin/bash
 # Define usage function
 usage() {
-exit 1
-echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir
+    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]" 
+    exit 1
 }
+
 # Parse options
 while [[ $# -gt 0 ]]; do
-# Making named positional arguments
-case "$1" in
--r|--read1)
-read1="$2"
-shift
-;;
--R|--read2)
-read2="$2"
-shift
-;;
--o|--output_dir)
-output_dir="$2"
-shift
-;;
-*)
-usage
-;;
-esac
-shift
+    # Making named positional arguments
+    case "$1" in
+        -r|--read1)
+        read1="$2"
+        shift
+        ;;
+        -R|--read2)
+        read2="$2"
+        shift
+        ;;
+        -o|--output_dir)
+        output_dir="$2"
+        shift
+        ;;
+        *)
+        usage
+        ;;
+    esac
+    shift
 done
 # Check if required arguments are provided
 if [[ -z $read1 || -z $read2 || -z $output_dir ]]; then
-usage
+    usage
 fi
 
 # Determine sample name from read mate 1 filename
@@ -98,19 +99,21 @@ each of these folders:
 * `mlst_out=$output_dir/$sample_name/mlst`
 * `results_dir=$output_dir/Results`
 
-5. Add echo statement that prints out the value of read1 and sample_name
+5. Add echo statement that prints out the value of `read1` and `sample_name`
 
-6. Save the file and add execution permission for the script (chmod u+x )
+6. Save the file and add execution permission for the script (`chmod u+x` )
 
-7. Execute the script by running ./bacterial_assembly.sh and ensure that the argument parser functions as expected,
+7. Execute the script by running `./bacterial_assembly.sh` and ensure that the argument parser functions as expected,
 and that the print statements work correctly.
 
 ### Read trimming
-To ensure that we get a great overview of quality parameters we will impose semi-strict filtration criteria using fastp introduced during the Quality Assurance on Illumina Reads exercises.
+To ensure that we get a great overview of quality parameters we will impose semi-strict filtration criteria using `fastp` introduced during the Quality Assurance on Illumina Reads exercises.
 
-1. Execute fastp by adding micromamba run -n BTG_QC CMD interchanging CMD with fastqc or fastp
-💡 You can use micromamba run -n BTG_QC fastp --help to see help message for fastp. You should use this example
+1. Execute fastp by adding `micromamba run -n BTG_QC CMD` interchanging CMD with `fastqc` or `fastp`
+
+💡 You can use `micromamba run -n BTG_QC fastp --help` to see help message for fastp. You should use this example
 for all the tools you will be running to learn how to provide proper input.
+
 2. Add fastp to the script, and add the following parameters
 
 **Fastp**
@@ -140,34 +143,35 @@ The script so far ⚠️ Don’t read unless needing help!
 #!/bin/bash
 # Define usage function
 usage() {
-exit 1
-echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir O
+    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]"
+    exit 1
 }
+
 # Parse options
 while [[ $# -gt 0 ]]; do
-# Making named positional arguments
-case "$1" in
--r|--read1)
-read1="$2"
-shift
-;;
--R|--read2)
-read2="$2"
-shift
-;;
--o|--output_dir)
-output_dir="$2"
-shift
-;;
-*)
-usage
-;;
-esac
-shift
+    # Making named positional arguments
+    case "$1" in
+        -r|--read1)
+        read1="$2"
+        shift
+        ;;
+        -R|--read2)
+        read2="$2"
+        shift
+        ;;
+        -o|--output_dir)
+        output_dir="$2"
+        shift
+        ;;
+        *)
+        usage
+        ;;
+    esac
+    shift
 done
 # Check if required arguments are provided
 if [[ -z $read1 || -z $read2 || -z $output_dir ]]; then
-usage
+    usage
 fi
 # Determine sample name from read mate 1 filename
 read1_filename=$(basename $read1)
@@ -189,10 +193,10 @@ micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1
 ### Adding the assembler to the pipeline
 
 After you trimmed low quality reads and determined that the general quality of reads will suffice, you need to
-make an assembly. For this purpose you can use various assemblers, some of the popular ones are spades,
-skesa, unicycler and many others.
-1. For this task we will be using SPAdes, expand you script by introducing a micromama run command, point to the
-BTG_spades_4.0.0 environment and execute the assembler using spades.py
+make an assembly. For this purpose you can use various assemblers, some of the popular ones are **spades**,
+**skesa**, **unicycler** and many others.
+1. For this task we will be using SPAdes, expand you script by introducing a `micromama run` command, point to the
+`BTG_spades_4.0.0` environment and execute the assembler using `spades.py`
 2. Manually add the following parameters:
 * `--isolate`
 * `-1` - trimmed reads1
@@ -223,34 +227,36 @@ Here we will copy important results files to the Results directory
 #!/bin/bash
 # Define usage function
 usage() {
-exit 1
-echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir O
+    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]"
+    exit 1
 }
+
 # Parse options
 while [[ $# -gt 0 ]]; do
-# Making named positional arguments
-case "$1" in
--r|--read1)
-read1="$2"
-shift
-;;
--R|--read2)
-read2="$2"
-shift
-;;
--o|--output_dir)
-output_dir="$2"
-shift
-;;
-*)
-usage
-;;
-esac
-shift
+
+    # Making named positional arguments
+    case "$1" in
+        -r|--read1)
+        read1="$2"
+        shift
+        ;;
+        -R|--read2)
+        read2="$2"
+        shift
+        ;;
+        -o|--output_dir)
+        output_dir="$2"
+        shift
+        ;;
+        *)
+        usage
+        ;;
+        esac
+    shift
 done
 # Check if required arguments are provided
 if [[ -z $read1 || -z $read2 || -z $output_dir ]]; then
-usage
+    usage
 fi
 # Determine sample name from read mate 1 filename
 read1_filename=$(basename $read1)
@@ -280,18 +286,18 @@ echo All done!
 Having to point to individual read file is far from optimal, so in order to automate things further, we can introduce a for loop.
 Here, we simplify the argument parser to only take in a directory with read files as input and run all tools on all the fastq pairs.
 
-1. In the argument parer at the top of the script, replace all instances of -r|--read1 with -r|read_dir and update the
-read1 variable to be read_dir
-2. Update the message in the argument parser usage descriptor (e.g. [-r|--read_dir REPLACE WITH SOMETHING HELPFUL!]
-3. Remove -R|--read2 and the read2 variable from the code
+1. In the argument parer at the top of the script, replace all instances of `-r|--read1` with `-r|read_dir` and update the
+`read1` variable to be `read_dir`
+2. Update the message in the argument parser usage descriptor (e.g. `[-r|--read_dir REPLACE WITH SOMETHING HELPFUL!]`
+3. Remove `-R|--read2` and the `read2` variable from the code
 4. Insert the following code line after the argument parser:
 ```bash
 read1_files=$(find $read_dir -maxdepth 1 -type f -name *_R1.*f*q* | sort)
 read2_files=${read1_files%_R1.fastq.gz}_R2.fastq.gz
 ```
-5. Integrate a for loop iterating on read1_files (Hint: call the for loop variable read1 - We will ignore the read2_files
+5. Integrate a for loop iterating on `read1_files` (Hint: call the for loop variable `read1` - We will ignore the `read2_files`
 variable until the very end!)
-6. Define the now missing read2 variable with the following:
+6. Define the now missing `read2` variable with the following:
 # Determine read mate 2
 ```bash
 read2=${read1%_R1.fastq.gz}_R2.fastq.gz
@@ -304,7 +310,7 @@ FastQC
 * `--threads 6`
 * `--quiet`
 Add $read1_files $read2_files to the end of the command
-9. Run MultiQC through the micromamba run command in the BTG_QC environment with the multiqc command.
+9. Run **MultiQC** through the `micromamba run` command in the `BTG_QC` environment with the `multiqc` command.
 Manually add the following parameters:
 * `-o $results_dir`
 * `-qf`
