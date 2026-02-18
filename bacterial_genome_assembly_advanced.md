@@ -298,8 +298,9 @@ read2_files=${read1_files%_R1.fastq.gz}_R2.fastq.gz
 5. Integrate a for loop iterating on `read1_files` (Hint: call the for loop variable `read1` - We will ignore the `read2_files`
 variable until the very end!)
 6. Define the now missing `read2` variable with the following:
-# Determine read mate 2
+
 ```bash
+# Determine read mate 2
 read2=${read1%_R1.fastq.gz}_R2.fastq.gz
 ```
 7. End the for loop with done after copying the result files to the $results_dir
