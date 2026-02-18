@@ -186,7 +186,7 @@ Copy important results files to the Results directory
 ```bash
 # Generate a report on output and collect relevant files
 micromamba run -n BTG_QC multiqc -o $results_dir -qf $output_dir
-cp $fastp_out/"$sample_name"_trimmed_* .fastq.gz $results_dir/.
+cp $fastp_out/"$sample_name"_trimmed_*.fastq.gz $results_dir/.
 cp $spades_out/contigs.fasta $results_dir/$sample_name.fasta
 cp $mlst_out/$sample_name.tsv $results_dir/.
 ```
@@ -219,7 +219,7 @@ micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_na
 micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_o
 # Generate a report on output and collect relevant files
 micromamba run -n BTG_QC multiqc -o $results_dir -qf $output_dir
-cp $fastp_out/"$sample_name"_trimmed_* .fastq.gz $results_dir/.
+cp $fastp_out/"$sample_name"_trimmed_*.fastq.gz $results_dir/.
 cp $spades_out/contigs.fasta $results_dir/$sample_name.fasta
 cp $mlst_out/$sample_name.tsv $results_dir/.
 ```
