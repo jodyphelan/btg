@@ -31,7 +31,7 @@ your progress through the intermediate exercises.
 
 ## Prerequisites
 
-For this exercise we will use the `BTG_QC` , `BTG_spades_4.0.0` , `BTG_alignment` environments. In addition, we will use the following files and file paths.
+For this exercise we will use the `BTG_QC` , `BTG_spades_4.2.0` , `BTG_alignment` environments. In addition, we will use the following files and file paths.
 * Path for read mate 1: `/home/gebt/BTG/SequenceData/Ec016.illumina_R1.fastq.gz`
 * Path for read mate 2: `/home/gebt/BTG/SequenceData/Ec016.illumina_R2.fastq.gz`
 * Path to Output folder: `/home/gebt/BTG/Day8_pipelines/bacterial_asembly`
@@ -165,7 +165,7 @@ After you trimmed low quality reads and determined that the general quality of r
 spades on our trimmed reads files:
 
 ```bash
-micromamba run -n BTG_spades_4.0.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -2 $fastp_out/"$sample_name"_trimmed_R2.fastq.gz -o $spades_out
+micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -2 $fastp_out/"$sample_name"_trimmed_R2.fastq.gz -o $spades_out
 ```
 
 ## Determine sequence type
@@ -215,7 +215,7 @@ mkdir -p $mlst_out
 mkdir -p $results_dir
 micromamba run -n BTG_QC fastqc -o $fastqc_out --memory 2048 --threads 6 --quiet $read1 $read2
 micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -I $read2 -O
-micromamba run -n BTG_spades_4.0.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.g
+micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.g
 micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_o
 # Generate a report on output and collect relevant files
 micromamba run -n BTG_QC multiqc -o $results_dir -qf $output_dir
