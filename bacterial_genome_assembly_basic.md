@@ -214,9 +214,9 @@ mkdir -p $spades_out
 mkdir -p $mlst_out
 mkdir -p $results_dir
 micromamba run -n BTG_QC fastqc -o $fastqc_out --memory 2048 --threads 6 --quiet $read1 $read2
-micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -I $read2 -O
-micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.g
-micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_o
+micromamba run -n BTG_QC fastp -i $read1 -o $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -I $read2 -O $fastp_out/"$sample_name"_trimmed_R2.fastq.gz
+micromamba run -n BTG_spades_4.2.0 spades.py --isolate -1 $fastp_out/"$sample_name"_trimmed_R1.fastq.gz -2 $fastp_out/"$sample_name"_trimmed_R2.fastq.gz -o $spades_out
+micromamba run -n BTG_alignment mlst "$spades_out"/contigs.fasta --quiet --label $sample_name > $mlst_out/$sample_name.tsv
 # Generate a report on output and collect relevant files
 micromamba run -n BTG_QC multiqc -o $results_dir -qf $output_dir
 cp $fastp_out/"$sample_name"_trimmed_*.fastq.gz $results_dir/.
