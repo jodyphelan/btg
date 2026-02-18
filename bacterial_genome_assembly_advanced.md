@@ -54,7 +54,7 @@ empty `bacterial_assembly.sh` file:
 #!/bin/bash
 # Define usage function
 usage() {
-    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]" > &2
+    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]"
     exit 1
 }
 
@@ -143,7 +143,7 @@ The script so far ⚠️ Don’t read unless needing help!
 #!/bin/bash
 # Define usage function
 usage() {
-    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]" > &2
+    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]"
     exit 1
 }
 
@@ -227,7 +227,7 @@ Here we will copy important results files to the Results directory
 #!/bin/bash
 # Define usage function
 usage() {
-    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]" > &2
+    echo "Usage: $(basename "$0") [-r|--read1 Read mate 1 file] [-R|--read2 Read mate 2 file] [-o|--output_dir Output directory]"
     exit 1
 }
 
@@ -324,7 +324,7 @@ Done!
 # Define usage function
 usage() {
     exit 1
-    echo "Usage: $(basename "$0") [-r|--read_dir Direcotry with read files] [-o|--output_dir Output directory]" > &2
+    echo "Usage: $(basename "$0") [-r|--read_dir Direcotry with read files] [-o|--output_dir Output directory]"
 }
 # Parse options
 while [[ $# -gt 0 ]]; do
